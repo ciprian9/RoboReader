@@ -1,3 +1,13 @@
+/*************************************************************************
+ * 
+ * 
+ *  File manager class taken from webcourses and modified to suit the program
+ *  Author: Ciprian Anton
+ *  2017
+ *  
+ *  
+ ************************************************************************************/
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -7,10 +17,10 @@ public class FileManager
 {
     // attributes 
 
-	String fileName;
-	File choice;
-	Scanner input;
-    PrintWriter pwInput;
+	private String fileName;
+	private File choice;
+	private Scanner input;
+    private PrintWriter pwInput;
 	
 	// Constructor
 	FileManager (String fileName)
@@ -55,7 +65,7 @@ public class FileManager
 		String[] values = new String[arraySize];
 	    try
 		{
-	    	// initialise your array
+	    	//Initialize your array
 	    	int i = 0;
 	    	
 	    	//get a scanner object
