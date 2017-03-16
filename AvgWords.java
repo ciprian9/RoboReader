@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class AvgWords 
 {
 	//attributes
-	private String[] words;
+	private ArrayList<String> words;
 	private ArrayList<String> obj;
 	private RemoveStop wordstop;
 	
@@ -25,7 +25,7 @@ public class AvgWords
 	 *Array list that will contain only one copy of each words, this is done in the 
 	 *following method
 	 */
-	public AvgWords(String[] words)
+	public AvgWords(ArrayList<String> words)
 	{
 		this.words = words;
 		this.obj = new ArrayList<String>();
@@ -45,18 +45,18 @@ public class AvgWords
 		HashMap<String, Integer> map1 = new HashMap<String, Integer>();
 		
 		//Loop around all the words in the file
-        for (int i = 0; i < words.length; i++)
+        for (int i = 0; i < words.size(); i++)
         {
             //If the key is present then increase the value by one
-            if(map.containsKey(words[i]))
+            if(map.containsKey(words.get(i)))
             {
-                map.put(words[i], map.get(words[i]) + 1);
+                map.put(words.get(i), map.get(words.get(i)) + 1);
             }
             //else add the key and set value to one also add the key to the array list obj
             else
             {
-                map.put(words[i],1);
-                obj.add(words[i]);
+                map.put(words.get(i),1);
+                obj.add(words.get(i));
             }
         }
         
@@ -71,14 +71,14 @@ public class AvgWords
 	
 	/*This method will sort the words by how many times they were used and create an array
 	that will be used for displaying*/
-	public String[] topWords()
+	public ArrayList<String> topWords()
 	{
 		
 		//Initialize the hashmap in this method
 		HashMap<String, Integer> map = dictCreate();
 		
 		//This array will hold the words in decreasing order based on dict keys
-		String[] high = new String[obj.size()];
+		ArrayList<String> high = new ArrayList<String>();
 		
 		//these two variables will allow the dictionary to be modified
 		//so that the elements of the array can be arranged
@@ -100,7 +100,7 @@ public class AvgWords
 				}
 			}
 			
-			high[j] = key + " = " + value; // Add the values to the array
+			high.add(key + " = " + value); // Add the values to the array
 			/*
 			 * The value is subtracted from the dictionary
 			 * this way the highest repeated element will not be the only one populating

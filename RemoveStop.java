@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class RemoveStop
@@ -18,14 +19,14 @@ public class RemoveStop
 	{
 		//basic file operations
     	e2.connectToFile();
-    	String[] stop = e2.readFile();
+    	ArrayList<String> stop = e2.readFile();
     	e2.closeReadFile();
 		
     	//reseting the count for the stop words so they will be ignored
-		for (int i = 0; i<stop.length; i++)
+		for (int i = 0; i<stop.size(); i++)
 		{
-			if(map.containsKey(stop[i]))
-				map.put(stop[i], 0);
+			if(map.containsKey(stop.get(i)))
+				map.put(stop.get(i), 0);
 		}
 		//Return the updated dictionary
 		return map;
