@@ -13,21 +13,24 @@
 import java.util.HashMap;
 import java.util.ArrayList;
 
-public class AvgWords {
+public class AvgWords 
+{
 	//attributes
 	private String[] words;
 	private ArrayList<String> obj;
+	private RemoveStop wordstop;
 	
 	/*
 	 * The constructor receives the array with the words and creates an
 	 *Array list that will contain only one copy of each words, this is done in the 
 	 *following method
 	 */
-	public AvgWords(String[] words){
+	public AvgWords(String[] words)
+	{
 		this.words = words;
-		this.obj = new ArrayList<String>();;
+		this.obj = new ArrayList<String>();
+		this.wordstop= new RemoveStop();
 	}
-	
 	
 	/*
 	 * HashMaps are used and returned in here to create a dictionary that will hold
@@ -35,9 +38,11 @@ public class AvgWords {
 	 *Some of the code was inspired from ideas on stackoverflow as i needed to learn
 	 *how to use hashmaps
 	 */
-	HashMap<String, Integer> dictCreate(){
+	public HashMap<String, Integer> dictCreate()
+	{
 		//creating new hashmap dictionary
 		HashMap<String, Integer> map = new HashMap<String, Integer>();
+		HashMap<String, Integer> map1 = new HashMap<String, Integer>();
 		
 		//Loop around all the words in the file
         for (int i = 0; i < words.length; i++)
@@ -54,23 +59,27 @@ public class AvgWords {
                 obj.add(words[i]);
             }
         }
-        /*Testing
-        -----------------------------------
-       	-System.out.println(map.toString());
-        -System.out.println(obj.toString());
-        ------------------------------------*/
+        
+        
+        map1 = wordstop.removeStop(map);
+        
        //Return the hashmap
-       return map;
+       return map1;
 	}
+	
+	
 	
 	/*This method will sort the words by how many times they were used and create an array
 	that will be used for displaying*/
-	public String[] topWords(){
+	public String[] topWords()
+	{
 		
 		//Initialize the hashmap in this method
 		HashMap<String, Integer> map = dictCreate();
+		
 		//This array will hold the words in decreasing order based on dict keys
 		String[] high = new String[obj.size()];
+		
 		//these two variables will allow the dictionary to be modified
 		//so that the elements of the array can be arranged
 		String key ="";
@@ -79,18 +88,15 @@ public class AvgWords {
 		/*The following nested loop is used to pick the highest value for each
 		 * element in the dictionary
 		 */
-		for(int j = 0; j<obj.size(); j++){
-			for (int i=0; i<obj.size(); i++){
+		for(int j = 0; j<obj.size(); j++)
+		{
+			for (int i=0; i<obj.size(); i++)
+			{
 				//the highest value is selected and the key is held
-				if(value < map.get(obj.get(i))){
+				if(value < map.get(obj.get(i)))
+				{
 					key = obj.get(i);
 					value = map.get(obj.get(i));
-					/*
-					 * Testing
-					 * ------------------------------------------
-					 * System.out.println(high[0] + "---" + num);
-					 * ------------------------------------------
-					 */
 				}
 			}
 			
@@ -101,25 +107,10 @@ public class AvgWords {
 			 * the array
 			 */
 			map.put(key, value - value); 
-			/*
-			 * Testing
-			 * ------------------------------------
-			 * System.out.println(map.toString());
-			 * ------------------------------------
-			 */
 			
 			value = 0; // reseting the value
 		}
 		
-		/*
-		 * Testing
-		 * ------------------------------
-		 * for(int i = 0; i<10; i++){
-		
-			*System.out.println(high[i]);
-		 *}
-		 *---------------------------------
-		 */
 		return high;
 	}
 }
