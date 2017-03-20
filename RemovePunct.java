@@ -26,11 +26,7 @@ public class RemovePunct
 	//The RV(Remove) Punctuation method creates the new array similarly as the previous
 	//did
 	public ArrayList<String> RvPunct()
-	{
-		
-		//calling the CountNew method to calculate the needed size for the array
-		
-		
+	{		
 		//Creating the new array with the required size
 		ArrayList<String> newvalue = new ArrayList<String>();
 		
@@ -78,7 +74,7 @@ public class RemovePunct
 		for(int j=0; j<noPunct.size(); j++)
 		{
 			//the word cleaned of non-use characters is then placed in the new array
-			finished.add(noPunct.get(j).replaceAll("[,.!?:;()[]]'\"\\/ ]", ""));
+			finished.add(noPunct.get(j).replaceAll("[,.!?:;()[]]'\"\\/ &]", ""));
 		}
 		//Finally the array is returned to control
 		return finished;

@@ -37,7 +37,7 @@ public class FileManager {
 		choice = new File(fileName);
 	}
 	   	
-	// Method to read a  file, returning a string of lines
+	// Method to read a  file word by word
 	ArrayList<String> readFile()
 	{
 		ArrayList<String> values = new ArrayList<String>();
@@ -63,6 +63,28 @@ public class FileManager {
 		return values;
 
 	}
+	
+	
+	// Method to read a  file, printing it line by line
+		void readLines()
+		{
+			try
+			{
+			    	
+				//get a scanner object
+				input = new Scanner(choice);
+			    	
+				//use the scanner to scroll through the lines of the file
+				while (input.hasNextLine())
+				{      
+					System.out.println(input.nextLine());
+				}	 
+			}
+			catch (FileNotFoundException e)
+			{
+				System.out.println("run time error " + e.getMessage());		
+			}
+		}
 	    
 
 	// File writing: method to get hold of a Print writer object
