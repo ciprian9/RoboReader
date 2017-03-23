@@ -1,7 +1,7 @@
 /**************************************************************************************************************************************
  * 
  * This is a class that finds the language
- * @author Nicholas
+ * @author Ciprian Anton
  * 2017
  *
  *
@@ -37,6 +37,7 @@ public class FindLan
     	e3.connectToFile();
     	e4.connectToFile();
     	int[] counters = new int[3];
+    	//counters to decide which language is it most likely
     	int count = 0, count2 = 0, count3 = 0;
     	
     	english = e2.readFile();

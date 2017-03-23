@@ -25,7 +25,7 @@ public class RemovePunct
 	
 	//The RV(Remove) Punctuation method creates the new array similarly as the previous
 	//did
-	public ArrayList<String> RvPunct()
+	public ArrayList<String> RvPunct(ArrayList<String> word)
 	{		
 		//Creating the new array with the required size
 		ArrayList<String> newvalue = new ArrayList<String>();
@@ -33,13 +33,13 @@ public class RemovePunct
 		int count = 0;
 		
 		//Similarly to the first method the two loops check the two arrays
-		for(int i=0; i< words.size(); i++)
+		for(int i=0; i< word.size(); i++)
 		{
 			for(int j=0; j<punctuation.size(); j++)
 			{
 				//The first if just as the one in the other method uses a counter 
 				//to verify that the current word is not a punctuation mark
-				if(words.get(i).equals(punctuation.get(j)))
+				if(word.get(i).equals(punctuation.get(j)))
 				{
 					count--;
 				}
@@ -50,7 +50,7 @@ public class RemovePunct
 				if(count == punctuation.size())
 				{
 				
-					newvalue.add(words.get(i));
+					newvalue.add(word.get(i));
 					count = 0;
 				}
 			}
@@ -65,7 +65,7 @@ public class RemovePunct
 	public ArrayList<String> fullRv()
 	{
 		//Array of Strings that holds the words without separate punctuation
-		ArrayList<String> noPunct = RvPunct();
+		ArrayList<String> noPunct = RvPunct(words);
 		//New array to hold all the words with no punctuation left
 		ArrayList<String> finished = new ArrayList<String>();
 		
@@ -77,6 +77,7 @@ public class RemovePunct
 			finished.add(noPunct.get(j).replaceAll("[,.!?:;()[]]'\"\\/ &]", ""));
 		}
 		//Finally the array is returned to control
+		finished = RvPunct(finished);
 		return finished;
 	}
 	

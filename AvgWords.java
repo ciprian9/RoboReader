@@ -60,7 +60,7 @@ public class AvgWords
             }
         }
         
-        
+        //Calling the removeStop class to remove stop words
         map1 = wordstop.removeStop(map);
         
        //Return the hashmap
@@ -69,8 +69,10 @@ public class AvgWords
 	
 	
 	
-	/*This method will sort the words by how many times they were used and create an array
-	that will be used for displaying*/
+	/*
+	 * This method will sort the words by how many times they were used and create an 
+	 * arrayList that will be used for displaying
+	 * */
 	public ArrayList<String> topWords()
 	{
 		
@@ -100,15 +102,14 @@ public class AvgWords
 				}
 			}
 			
-			high.add(key + " = " + value); // Add the values to the array
+			high.add(key + " : " + value + " repeats"); // Add the values to the array
 			/*
 			 * The value is subtracted from the dictionary
 			 * this way the highest repeated element will not be the only one populating
 			 * the array
 			 */
-			map.put(key, value - value); 
-			
 			value = 0; // reseting the value
+			map.put(key, value); 		
 		}
 		
 		return high;

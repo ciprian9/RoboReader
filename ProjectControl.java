@@ -12,8 +12,7 @@ import java.util.ArrayList;
 
 public class ProjectControl 
 {
-
-	 public static void main(String[] args) 
+	public static void main(String[] args) 
 	 {
 		Scanner option = new Scanner(System.in);
 		int choice = 0;
@@ -24,6 +23,7 @@ public class ProjectControl
 		
 		while(choice != 6)
 		{
+
 			 System.out.print("Main Menu\n");
 			 System.out.print("1. Open File\n");
 			 System.out.print("2. Veify Language\n");
@@ -77,7 +77,7 @@ public class ProjectControl
 			 		}
 			 		else
 			 		{
-			 			System.out.println(punctMarks);
+			 			//System.out.println(punctMarks);
 			 			FindLan t3 = new FindLan(fileRead);
 			 		 	t3.cLang();
 			 		}
@@ -124,8 +124,9 @@ public class ProjectControl
 			 		}
 			 		break;
 			 	case 5:
-			 		FilterWords filter = new FilterWords(punctMarks, fileRead);
-			 		fileRead=filter.readWords();
+			 		FilterWords filter = new FilterWords(punctMarks);
+			 		punctMarks=filter.readWords();
+			 		System.out.print(punctMarks.toString());
 			 		break;
 			 	case 6:
 			 		System.out.println("\nThank You for Using Robo-Reader \n          Goodbye");
@@ -133,11 +134,11 @@ public class ProjectControl
 			 	default:
 			 		System.out.println("Option is not available");
 			 	}
-	
-			}
-			option.close();
 
+			}
+		 option.close();
 	 }
+	
 	 
 }
 

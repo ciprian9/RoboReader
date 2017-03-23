@@ -22,6 +22,7 @@ public class FileManager {
 	private File choice;
 	private Scanner input;
 	private PrintWriter pwInput;
+
 		
 	// Constructor
 	FileManager (String fileName)
@@ -47,7 +48,7 @@ public class FileManager {
 			//get a scanner object
 			input = new Scanner(choice);
 		    	
-			//use the scanner to scroll through the lines of the file
+			//use the scanner to scroll through the words of the file
 			while (input.hasNext())
 			{      
 				values.add(input.next());
@@ -66,8 +67,10 @@ public class FileManager {
 	
 	
 	// Method to read a  file, printing it line by line
-		void readLines()
+		ArrayList<String> readLines()
 		{
+			
+			ArrayList<String> values = new ArrayList<String>();
 			try
 			{
 			    	
@@ -77,13 +80,16 @@ public class FileManager {
 				//use the scanner to scroll through the lines of the file
 				while (input.hasNextLine())
 				{      
-					System.out.println(input.nextLine());
-				}	 
+					values.add(input.nextLine());
+					//System.out.println(input.nextLine());
+				}
+				//System.out.println(values.toString());
 			}
 			catch (FileNotFoundException e)
 			{
 				System.out.println("run time error " + e.getMessage());		
 			}
+			return values;
 		}
 	    
 
