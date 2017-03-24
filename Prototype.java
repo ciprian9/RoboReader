@@ -127,7 +127,7 @@ public class Prototype {
 		
 		textField_1 = new JTextField();
 		textField_1.setEnabled(false);
-		textField_1.setBounds(319, 122, 264, 103);
+		textField_1.setBounds(322, 118, 264, 103);
 		frame.getContentPane().add(textField_1);
 		textField_1.setColumns(10);
 		
@@ -159,7 +159,6 @@ public class Prototype {
 		LangCheck.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//System.out.println(punctMarks);
-				ProjectControl p = new ProjectControl();
 	 			//FindLan t3 = new FindLan(ProjectControl.fileRead);
 	 		 	//t3.cLang();
 			}

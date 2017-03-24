@@ -49,7 +49,7 @@ public class FindLan
     	e4.closeReadFile();
     	 
 		
-		//checking if any english stopwords in words if yes then count is incremeanted
+		//checking if any English stop words in words if yes then count is incremented
 		for(int i=0;i<words.size();i++){
 			for(int j=0;j<english.size();j++){
 				if(words.get(i).equals(english.get(j))){
@@ -59,7 +59,7 @@ public class FindLan
 			}
 		}	
 		
-		//checking if any spanish stopwords in words if yes then count2  is incremeanted
+		//checking if any Spanish stop words in words if yes then count2  is incremented
 		for(int i=0;i<words.size();i++){
 			for(int j=0;j<spanish.size();j++){
 				if(words.get(i).equals(spanish.get(j))){
@@ -69,7 +69,7 @@ public class FindLan
 			}
 		}
 		
-		//checking if any french stopwords in words if yes then count3  is incremeanted
+		//checking if any French stop words in words if yes then count3  is incremented
 		for(int i=0;i<words.size();i++){
 			for(int j=0;j<french.size();j++){
 				if(words.get(i).equals(french.get(j))){
@@ -94,51 +94,25 @@ public class FindLan
 		int[] counters = findLan();
 		String lang = "";
 		
-		//determining if it is english
+		//determining if it is English
 		if(counters[0] > counters[1] && counters[0] > counters[2]){
 			lang="English";
 			//System.out.println(lang);
 		}
 				
-		//spanish
+		//Spanish
 		if(counters[1] > counters[0] && counters[1] > counters[2]){
 			lang="Spanish";
 			//System.out.println(lang);
 		}
-		//or french
+		//or French
 		if(counters[2] > counters[0] && counters[2] > counters[1]){
 			lang="French";
-			//System.out.println(lang);
 		}
 		
-		System.out.println(lang);
 		return lang;
 		
 		
-	}
-
-	public ArrayList<String> getEnglish() {
-		return english;
-	}
-
-	public void setEnglish(ArrayList<String> english) {
-		this.english = english;
-	}
-
-	public ArrayList<String> getSpanish() {
-		return spanish;
-	}
-
-	public void setSpanish(ArrayList<String> spanish) {
-		this.spanish = spanish;
-	}
-
-	public ArrayList<String> getFrench() {
-		return french;
-	}
-
-	public void setFrench(ArrayList<String> french) {
-		this.french = french;
 	}
 }
 

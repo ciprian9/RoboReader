@@ -10,48 +10,29 @@
  ************************************************************************************/
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class FilterWords {
 	//attributes
 	private ArrayList<String> punctuation;
+	private ArrayList<String> words;
+	
 	//constructor
-	public FilterWords(ArrayList<String> punctuation)
+	public FilterWords(ArrayList<String> punctuation, ArrayList<String> words)
 	{
 		this.punctuation = punctuation;
+		this.words = words;
 	}
 	
-	/*This method will read the words from the user
-	 * and add them to the punctuation array that is used to remove isolated 
-	 * punctuation marks
+	/*This add the words from the filter to the punctuation marks that are isolated
+	 * in order to remove both
 	 */
 	public ArrayList<String> readWords()
 	{
-		String temp = "";
-		//Suppressing the error for resources as closing the scanner causes further
-		//problems
-		@SuppressWarnings("resource")
-		Scanner input = new Scanner(System.in);
 		
-		//Loop around until the user has finished entering words
-		while(true)
-		{
-			System.out.print("Enter words to be excluded\nEnter 0  to stop : ");
-			temp=input.next();
-			
-			//check for the exit requirement
-			if(temp.equals("0"))
-			{
-				break;
-			}
-			else
-			{
-				//add the word to the ArrayList
-				punctuation.add(temp);
-			}
+		for(String temp: words){
+			punctuation.add(temp);
 		}
 		
-		//input.close();
 		return punctuation;
 		
 	}

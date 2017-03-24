@@ -15,14 +15,19 @@ import javax.swing.SwingConstants;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.JEditorPane;
-import javax.swing.JTextPane;
+import javax.swing.JTextArea;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
+import javax.swing.JToggleButton;
+
 
 public class Prot2 {
 
 	private JFrame frame;
 	private JTextField textField;
 	private JTable table;
+	private JTextField textField_1;
 
 	/**
 	 * Launch the application.
@@ -54,31 +59,6 @@ public class Prot2 {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 607, 327);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		JPanel panel = new JPanel();
-		frame.getContentPane().add(panel, BorderLayout.NORTH);
-		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-		
-		JToolBar toolBar = new JToolBar();
-		panel.add(toolBar);
-		
-		JButton btnNewButton = new JButton("New button");
-		toolBar.add(btnNewButton);
-		
-		JButton btnNewButton_1 = new JButton("New button");
-		toolBar.add(btnNewButton_1);
-		
-		JButton btnNewButton_2 = new JButton("New button");
-		toolBar.add(btnNewButton_2);
-		
-		JButton btnNewButton_3 = new JButton("New button");
-		toolBar.add(btnNewButton_3);
-		
-		JButton btnNewButton_4 = new JButton("New button");
-		toolBar.add(btnNewButton_4);
-		
-		JButton btnNewButton_5 = new JButton("New button");
-		toolBar.add(btnNewButton_5);
 		
 		JPanel panel_1 = new JPanel();
 		frame.getContentPane().add(panel_1, BorderLayout.WEST);
@@ -151,10 +131,88 @@ public class Prot2 {
 		JPanel panel_2 = new JPanel();
 		frame.getContentPane().add(panel_2, BorderLayout.SOUTH);
 		
+		
+		JPanel panel = new JPanel();
+		frame.getContentPane().add(panel, BorderLayout.NORTH);
+		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		
+		JToolBar toolBar = new JToolBar();
+		panel.add(toolBar);
+		
+		JButton btnNewButton = new JButton("New button");
+		toolBar.add(btnNewButton);
+		
+		JButton btnNewButton_1 = new JButton("New button");
+		toolBar.add(btnNewButton_1);
+		
+		JButton btnNewButton_2 = new JButton("New button");
+		toolBar.add(btnNewButton_2);
+		
+		JButton btnNewButton_3 = new JButton("New button");
+		toolBar.add(btnNewButton_3);
+		
+		JButton btnNewButton_4 = new JButton("New button");
+		toolBar.add(btnNewButton_4);
+		
+		JButton btnNewButton_5 = new JButton("New button");
+		toolBar.add(btnNewButton_5);
+		
 		JPanel panel_3 = new JPanel();
 		frame.getContentPane().add(panel_3, BorderLayout.EAST);
+		GridBagLayout gbl_panel_3 = new GridBagLayout();
+		gbl_panel_3.columnWidths = new int[]{89, 0, 86, 0, 0};
+		gbl_panel_3.rowHeights = new int[]{23, 0, 0, 0, 0};
+		gbl_panel_3.columnWeights = new double[]{1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel_3.rowWeights = new double[]{0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
+		panel_3.setLayout(gbl_panel_3);
 		
-		JPanel panel_4 = new JPanel();
-		frame.getContentPane().add(panel_4, BorderLayout.CENTER);
+		JButton btnNewButton_6 = new JButton("New button");
+		GridBagConstraints gbc_btnNewButton_6 = new GridBagConstraints();
+		gbc_btnNewButton_6.anchor = GridBagConstraints.NORTHWEST;
+		gbc_btnNewButton_6.insets = new Insets(0, 0, 5, 5);
+		gbc_btnNewButton_6.gridx = 0;
+		gbc_btnNewButton_6.gridy = 0;
+		panel_3.add(btnNewButton_6, gbc_btnNewButton_6);
+		
+		textField_1 = new JTextField();
+		GridBagConstraints gbc_textField_1 = new GridBagConstraints();
+		gbc_textField_1.insets = new Insets(0, 0, 5, 5);
+		gbc_textField_1.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textField_1.gridx = 1;
+		gbc_textField_1.gridy = 0;
+		gbc_textField_1.gridwidth = 2;
+		panel_3.add(textField_1, gbc_textField_1);
+		textField_1.setColumns(10);
+		
+		JToggleButton tglbtnFilter = new JToggleButton("Filter");
+		GridBagConstraints gbc_tglbtnFilter = new GridBagConstraints();
+		gbc_tglbtnFilter.insets = new Insets(0, 0, 5, 5);
+		gbc_tglbtnFilter.gridx = 0;
+		gbc_tglbtnFilter.gridy = 2;
+		panel_3.add(tglbtnFilter, gbc_tglbtnFilter);
+		
+		JLabel lblNewLabel = new JLabel("Filter Words");
+		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
+		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNewLabel.gridx = 1;
+		gbc_lblNewLabel.gridy = 2;
+		panel_3.add(lblNewLabel, gbc_lblNewLabel);
+		
+		JScrollPane scrollPane_1 = new JScrollPane();
+		GridBagConstraints gbc_scrollPane_1 = new GridBagConstraints();
+		gbc_scrollPane_1.insets = new Insets(0, 0, 0, 5);
+		gbc_scrollPane_1.anchor = GridBagConstraints.NORTH;
+		gbc_scrollPane_1.fill = GridBagConstraints.HORIZONTAL;
+		gbc_scrollPane_1.gridx = 0;
+		gbc_scrollPane_1.gridy = 3;
+		gbc_scrollPane_1.gridwidth = 3;
+		gbc_scrollPane_1.ipady = 120;
+		gbc_scrollPane_1.ipadx = 30;
+		panel_3.add(scrollPane_1, gbc_scrollPane_1);
+		
+		JTextArea textArea = new JTextArea();
+		scrollPane_1.setViewportView(textArea);
+		
+
 	}
 }

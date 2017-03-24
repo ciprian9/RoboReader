@@ -124,7 +124,7 @@ public class ProjectControl
 			 		}
 			 		break;
 			 	case 5:
-			 		FilterWords filter = new FilterWords(punctMarks);
+			 		FilterWords filter = new FilterWords(punctMarks, fileRead);
 			 		punctMarks=filter.readWords();
 			 		System.out.print(punctMarks.toString());
 			 		break;

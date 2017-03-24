@@ -1,5 +1,9 @@
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+
 import javax.swing.JFrame;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -22,11 +26,22 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JTextArea;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 
-public class Project_Gui {
+public class Project_Gui extends JFrame {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	//Attributes
 	private JFrame mainWindow;
+	private JTextField reg_Field;
+	private JTextArea filter_TextArea;
+	private ArrayList<String> fileRead;
+	private ArrayList<String> punctMarks;
+	private JButton but_Top;
+	
 
 	
 	//Create main method for running the program
@@ -72,6 +87,10 @@ public class Project_Gui {
 		mainWindow.getContentPane().add(center, BorderLayout.CENTER);
 		//Setting it up as a border Layout
 		center.setLayout(new BorderLayout(0, 0));
+		
+/************************************************************************************************
+ * This is the Western Part of the GUI		
+ ************************************************************************************************/
 		
 		//Creating panel for the Left
 				JPanel west = new JPanel();
@@ -153,24 +172,104 @@ public class Project_Gui {
 				table_scrollPane.setViewportView(table);
 				west.setLayout(gl_west);
 				
+				
+				
+								
+/*********************************************************************************
+ * This is the Eastern part of the GUI				
+ ********************************************************************************/
+				
 				//Creating panel for the Right
 				JPanel east = new JPanel();
 				center.add(east, BorderLayout.EAST);
+				
+				//Creating a GridBagLayout for the Easter side of the app
+				GridBagLayout gbl_east = new GridBagLayout();
+				//Setting up all the necessry measuremeants and component distribution
+				gbl_east.columnWidths = new int[]{89, 0, 86, 0, 0};
+				gbl_east.rowHeights = new int[]{23, 0, 0, 0, 0};
+				gbl_east.columnWeights = new double[]{1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+				gbl_east.rowWeights = new double[]{0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
+				east.setLayout(gbl_east);
+				
+				//Setting up the constraints for each component
+				JButton reg_Button = new JButton("Register");
+				GridBagConstraints gbc_reg_Button = new GridBagConstraints();
+				gbc_reg_Button.anchor = GridBagConstraints.NORTHWEST; //Place it to the top-left
+				gbc_reg_Button.insets = new Insets(0, 0, 5, 5); //Specify the space between the component and the edge of the panel
+				gbc_reg_Button.gridx = 0; //Column
+				gbc_reg_Button.gridy = 0; //Row
+				east.add(reg_Button, gbc_reg_Button); //Add to the panel
+				
+				reg_Field = new JTextField();
+				GridBagConstraints gbc_reg_Field = new GridBagConstraints();
+				gbc_reg_Field.insets = new Insets(0, 0, 5, 5);
+				gbc_reg_Field.fill = GridBagConstraints.HORIZONTAL;
+				gbc_reg_Field.gridx = 1;
+				gbc_reg_Field.gridy = 0;
+				gbc_reg_Field.gridwidth = 2; //span over 2 columns
+				east.add(reg_Field, gbc_reg_Field);
+				reg_Field.setColumns(10);
+				
+				JButton tb_Filter = new JButton("Exclude");
+				GridBagConstraints gbc_tb_Filter = new GridBagConstraints();
+				gbc_tb_Filter.insets = new Insets(25, 0, 5, 5);
+				gbc_tb_Filter.gridx = 1;
+				gbc_tb_Filter.gridy = 2;
+				east.add(tb_Filter, gbc_tb_Filter);
+				
+				//Add a scroll pane for the border of the text area
+				JScrollPane Filter_scrollPane = new JScrollPane();
+				GridBagConstraints gbc_Filter_scrollPane = new GridBagConstraints();
+				gbc_Filter_scrollPane.insets = new Insets(5, 0, 0, 5);
+				gbc_Filter_scrollPane.anchor = GridBagConstraints.NORTH;
+				gbc_Filter_scrollPane.fill = GridBagConstraints.HORIZONTAL;
+				gbc_Filter_scrollPane.gridx = 0;
+				gbc_Filter_scrollPane.gridy = 3;
+				gbc_Filter_scrollPane.gridwidth = 3;
+				gbc_Filter_scrollPane.ipady = 120; //height
+				east.add(Filter_scrollPane, gbc_Filter_scrollPane);
+				
+				filter_TextArea = new JTextArea();
+				Filter_scrollPane.setViewportView(filter_TextArea);
+				filter_TextArea.setLineWrap(true);
+				filter_TextArea.setEditable(false);
+				
+				tb_Filter.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						String[] s = filter_TextArea.getText().split(",");
+						ArrayList<String> exclude1 = new ArrayList<>(Arrays.asList(s)) ;
+						ArrayList<String> exclude = new ArrayList<String>();
+						for(int i=0; i<exclude1.size(); i++){
+							exclude.add(exclude1.get(i).replaceAll("[\n\\s]", ""));
+						}
+						//System.out.print(exclude.toString());
+						FilterWords filter = new FilterWords(punctMarks, exclude);
+				 		punctMarks=filter.readWords();
+				 		//System.out.print(punctMarks.toString());
+				 		but_Top.doClick();
+					}
+				});
+				
 				
 				//Creating panel for the bottom
 				JPanel south = new JPanel();
 				center.add(south, BorderLayout.SOUTH);
 				
 		
+				
+/**************************************************************************************************************
+ * This is the North or Top part of the GUI		
+ ****************************************************************************************************************/
 		//Creating panel for the top
 		JPanel north = new JPanel();
 		center.add(north, BorderLayout.NORTH);
 		
-		//Creating a toolbar in the north panel
+		//Creating a tool bar in the north panel
 		JToolBar toolBar = new JToolBar();
 		north.add(toolBar);
 		
-		//Creating all needed buttons to populate the toolbar
+		//Creating all needed buttons to populate the tool bar
 		JButton but_OpenFile = new JButton("");
 		//All buttons use an icon instead of text
 		but_OpenFile.setIcon(new ImageIcon("Z:\\Prototyping\\RoboReader\\Web Test\\open_file-512 (1).png"));
@@ -180,7 +279,7 @@ public class Project_Gui {
 		toolBar.add(but_FindLang);
 		but_FindLang.setIcon(new ImageIcon("Z:\\Prototyping\\RoboReader\\Web Test\\lang.png"));
 		
-		JButton but_Top = new JButton("");
+		but_Top = new JButton("");
 		but_Top.setIcon(new ImageIcon("Z:\\Prototyping\\RoboReader\\Web Test\\icon-top_10s.png"));
 		toolBar.add(but_Top);
 		
@@ -199,15 +298,20 @@ public class Project_Gui {
 		//Creating all the Action Listeners for each button
 		but_OpenFile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				FileManager e = new FileManager("Z:\\Java\\College\\Robo-Reader\\src\\Example1.txt");
+				FileManager e1 = new FileManager("Z:\\Java\\College\\Robo-Reader\\src\\punctuation.txt");
+				e.connectToFile();
+				e1.connectToFile();
+				fileRead = e.readFile();
+				punctMarks = e1.readFile();
+				e.closeReadFile();
+				e1.closeReadFile();
+				System.out.println("File has been opened successfully");
 			}
 		});
 		
 		but_FindLang.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				FileManager e = new FileManager("Z:\\Java\\College\\Robo-Reader\\src\\Example1.txt");
-				e.connectToFile();
-				ArrayList<String> fileRead = e.readFile();
-				e.closeReadFile();
 				FindLan l = new FindLan(fileRead);
 				String lang = l.cLang();
 				text_lang.setText(lang);				
@@ -216,12 +320,6 @@ public class Project_Gui {
 		
 		but_Top.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				FileManager e = new FileManager("Z:\\Java\\College\\Robo-Reader\\src\\Example1.txt");
-				FileManager e1 = new FileManager("Z:\\Java\\College\\Robo-Reader\\src\\punctuation.txt");
-				e.connectToFile();
-				e1.connectToFile();
-				ArrayList<String> fileRead = e.readFile();
-				ArrayList<String> punctMarks = e1.readFile();
 				RemovePunct t1 = new RemovePunct(punctMarks, fileRead);
 				ArrayList<String> cleanWords = t1.EndArray();
 				
@@ -252,7 +350,9 @@ public class Project_Gui {
 		});
 		
 		but_Filter.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				filter_TextArea.setEditable(true);
+				filter_TextArea.grabFocus();
 			}
 		});
 		
@@ -265,18 +365,9 @@ public class Project_Gui {
 		
 		
 		
-		//West
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+/*************************************************************************************
+ * This is the man menu added directly to the frame
+ ***************************************************************************************/
 		
 		
 		//Creating a menu bar
@@ -295,6 +386,9 @@ public class Project_Gui {
 		option_File.add(item_Reset);
 		item_Reset.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent ev) {
+				text_lang.setText("");
+				filter_TextArea.setText("");
+				filter_TextArea.setEditable(false);
 				table.setModel(new DefaultTableModel(
 						new Object[][] {
 							{1, null},
@@ -312,7 +406,7 @@ public class Project_Gui {
 							"Numbers", "Words"
 						}
 					));
-				text_lang.setText("");
+
 		    }
 		});
 		
@@ -325,10 +419,6 @@ public class Project_Gui {
 		option_Analyse.add(item_VerifyLanguage);
 		item_VerifyLanguage.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent ev) {
-		    	FileManager e = new FileManager("Z:\\Java\\College\\Robo-Reader\\src\\Example1.txt");
-				e.connectToFile();
-				ArrayList<String> fileRead = e.readFile();
-				e.closeReadFile();
 				FindLan l = new FindLan(fileRead);
 				String lang = l.cLang();
 				text_lang.setText(lang);
@@ -339,12 +429,6 @@ public class Project_Gui {
 		option_Analyse.add(item_DisplayTop);
 		item_DisplayTop.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent ev) {
-				FileManager e = new FileManager("Z:\\Java\\College\\Robo-Reader\\src\\Example1.txt");
-				FileManager e1 = new FileManager("Z:\\Java\\College\\Robo-Reader\\src\\punctuation.txt");
-				e.connectToFile();
-				e1.connectToFile();
-				ArrayList<String> fileRead = e.readFile();
-				ArrayList<String> punctMarks = e1.readFile();
 				RemovePunct t1 = new RemovePunct(punctMarks, fileRead);
 				ArrayList<String> cleanWords = t1.EndArray();
 				
@@ -376,6 +460,12 @@ public class Project_Gui {
 		
 		JMenuItem item_TurnOnFilter = new JMenuItem("Turn On Filter");
 		option_Filter.add(item_TurnOnFilter);
+		item_TurnOnFilter.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent ev) {
+				filter_TextArea.setEditable(true);
+				filter_TextArea.grabFocus();
+		    }
+		});
 		
 		JMenu option_Help = new JMenu("Help");
 		menuBar.add(option_Help);
