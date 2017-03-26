@@ -46,6 +46,7 @@ public class Project_Gui extends JFrame {
 	JPanel center;
 	JTextArea fullText_Pane;
 	FileChooser j;
+	boolean isFileOpen;
 	
 	FileManager e1;
 
@@ -291,6 +292,7 @@ public class Project_Gui extends JFrame {
 				
 				JTextArea fullText_Area = new JTextArea();
 				fullText_Pane.setViewportView(fullText_Area);
+				fullText_Area.setEditable(false);
 				
 				JButton but_FullText = new JButton("Display Full Text");
 				GridBagConstraints gbc_but_FullText = new GridBagConstraints();
@@ -303,14 +305,19 @@ public class Project_Gui extends JFrame {
 				
 				but_FullText.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {					
+						FileManager e = new FileManager(j.path + "\\" + j.name);
+						e.connectToFile();
+						fullText = e.readLines();
+						e.closeReadFile();
+						
 						String tmp = "";
 			 			
-			 			for(String temp: j.str){
+			 			for(String temp: fullText){
 			 				tmp = tmp + temp + "\n";
 			 			}
 			 			
 			 			fullText_Area.setEnabled(true);
-						fullText_Area.append(tmp);				
+						fullText_Area.append(tmp);
 					}
 				});
 				
@@ -405,6 +412,7 @@ public class Project_Gui extends JFrame {
 		
 		but_Text.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				but_FullText.doClick();
 			}
 		});
 		
@@ -457,9 +465,11 @@ public class Project_Gui extends JFrame {
 		option_File.add(item_Reset);
 		item_Reset.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent ev) {
+		    	fileRead.clear();
 				text_lang.setText("");
 				filter_TextArea.setText("");
 				filter_TextArea.setEditable(false);
+				fullText_Area.setText("");
 				table.setModel(new DefaultTableModel(
 						new Object[][] {
 							{1, null},
@@ -490,9 +500,7 @@ public class Project_Gui extends JFrame {
 		option_Analyse.add(item_VerifyLanguage);
 		item_VerifyLanguage.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent ev) {
-				FindLan l = new FindLan(fileRead);
-				String lang = l.cLang();
-				text_lang.setText(lang);
+				but_FindLang.doClick();
 		    }
 		});
 		
@@ -500,31 +508,17 @@ public class Project_Gui extends JFrame {
 		option_Analyse.add(item_DisplayTop);
 		item_DisplayTop.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent ev) {
-				RemovePunct t1 = new RemovePunct(punctMarks, fileRead);
-				ArrayList<String> cleanWords = t1.EndArray();
-				
-				table.setModel(new DefaultTableModel(
-						new Object[][] {
-							{1, cleanWords.get(0)},
-							{2, cleanWords.get(1)},
-							{3, cleanWords.get(2)},
-							{4, cleanWords.get(3)},
-							{5, cleanWords.get(4)},
-							{6, cleanWords.get(5)},
-							{7, cleanWords.get(6)},
-							{8, cleanWords.get(7)},
-							{9, cleanWords.get(8)},
-							{10, cleanWords.get(9)},
-						},
-						new String[] {
-							"Numbers", "Words"
-						}
-					));
+				but_Top.doClick();
 		    }
 		});
 		
 		JMenuItem item_DisplayText = new JMenuItem("Display Text");
 		option_Analyse.add(item_DisplayText);
+		item_DisplayText.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent ev) {
+		    	but_FullText.doClick();
+		    }
+		});
 		
 		JMenu option_Filter = new JMenu("Filter");
 		menuBar.add(option_Filter);
@@ -533,8 +527,7 @@ public class Project_Gui extends JFrame {
 		option_Filter.add(item_TurnOnFilter);
 		item_TurnOnFilter.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent ev) {
-				filter_TextArea.setEditable(true);
-				filter_TextArea.grabFocus();
+				but_Filter.doClick();
 		    }
 		});
 		
