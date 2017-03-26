@@ -7,6 +7,7 @@ import java.awt.Insets;
 import javax.swing.JFrame;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
 import java.awt.event.ActionEvent;
 
 import javax.swing.GroupLayout;
@@ -39,8 +40,16 @@ public class Project_Gui extends JFrame {
 	private JTextField reg_Field;
 	private JTextArea filter_TextArea;
 	private ArrayList<String> fileRead;
+	private ArrayList<String> fullText;
 	private ArrayList<String> punctMarks;
 	private JButton but_Top;
+	JPanel center;
+	JTextArea fullText_Pane;
+	FileChooser j;
+	
+	FileManager e1;
+
+	
 	
 
 	
@@ -69,7 +78,12 @@ public class Project_Gui extends JFrame {
 	//Create the application Gui.
 	
 	public Project_Gui() {
+		e1 = new FileManager("Z:\\Java\\College\\Robo-Reader\\src\\punctuation.txt");
+		e1.connectToFile();
+		punctMarks = e1.readFile();
+		e1.closeReadFile();
 		initialize();
+		
 	}
 	
 	//Initialize the contents of the frame.
@@ -77,7 +91,7 @@ public class Project_Gui extends JFrame {
 		//creating main frame
 		mainWindow = new JFrame();
 		//setting the size
-		mainWindow.setBounds(100, 100, 623, 384);
+		mainWindow.setBounds(100, 100, 623, 484);
 		//Exit when the x button is pressed
 		mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
@@ -118,7 +132,7 @@ public class Project_Gui extends JFrame {
 				//Group will use horizontal alignment
 				gl_west.setHorizontalGroup(
 						
-						//From here on I am adding the diffeent elements to the group : Some of the code have been taken from StockOverflow such as .addGroup(gl_west.createParallelGroup(Alignment.LEADING)
+						//From here on I am adding the different elements to the group : Some of the code have been taken from StockOverflow such as .addGroup(gl_west.createParallelGroup(Alignment.LEADING)
 					gl_west.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_west.createSequentialGroup()
 							.addGap(5)
@@ -213,7 +227,7 @@ public class Project_Gui extends JFrame {
 				
 				JButton tb_Filter = new JButton("Exclude");
 				GridBagConstraints gbc_tb_Filter = new GridBagConstraints();
-				gbc_tb_Filter.insets = new Insets(25, 0, 5, 5);
+				gbc_tb_Filter.insets = new Insets(10, 0, 5, 5);
 				gbc_tb_Filter.gridx = 1;
 				gbc_tb_Filter.gridy = 2;
 				east.add(tb_Filter, gbc_tb_Filter);
@@ -251,10 +265,56 @@ public class Project_Gui extends JFrame {
 					}
 				});
 				
-				
+/*********************************************************************************
+ * This is the Southern part of the GUI
+ **********************************************************************************/
 				//Creating panel for the bottom
 				JPanel south = new JPanel();
 				center.add(south, BorderLayout.SOUTH);
+				GridBagLayout gbl_south = new GridBagLayout();
+				gbl_south.columnWidths = new int[]{225, 46, 89, 0, 0};
+				gbl_south.rowHeights = new int[]{0, 0, 0, 0, 23, 0};
+				gbl_south.columnWeights = new double[]{1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+				gbl_south.rowWeights = new double[]{1.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+				south.setLayout(gbl_south);
+				
+				JScrollPane fullText_Pane = new JScrollPane();
+				GridBagConstraints gbc_fullText_Pane = new GridBagConstraints();
+				gbc_fullText_Pane.insets = new Insets(5, 10, 5, 10);
+				gbc_fullText_Pane.fill = GridBagConstraints.BOTH;
+				gbc_fullText_Pane.gridx = 0;
+				gbc_fullText_Pane.gridy = 0;
+				gbc_fullText_Pane.gridwidth = 3;
+				gbc_fullText_Pane.gridheight = 4;
+				gbc_fullText_Pane.ipady = 80;
+				south.add(fullText_Pane, gbc_fullText_Pane);
+				
+				JTextArea fullText_Area = new JTextArea();
+				fullText_Pane.setViewportView(fullText_Area);
+				
+				JButton but_FullText = new JButton("Display Full Text");
+				GridBagConstraints gbc_but_FullText = new GridBagConstraints();
+				gbc_but_FullText.insets = new Insets(0, 0, 5, 5);
+				gbc_but_FullText.gridx = 0;
+				gbc_but_FullText.gridy = 4;
+				gbc_but_FullText.gridwidth = 3;
+				gbc_but_FullText.ipadx = 200;
+				south.add(but_FullText, gbc_but_FullText);
+				
+				but_FullText.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {					
+						String tmp = "";
+			 			
+			 			for(String temp: j.str){
+			 				tmp = tmp + temp + "\n";
+			 			}
+			 			
+			 			fullText_Area.setEnabled(true);
+						fullText_Area.append(tmp);				
+					}
+				});
+				
+				
 				
 		
 				
@@ -298,20 +358,19 @@ public class Project_Gui extends JFrame {
 		//Creating all the Action Listeners for each button
 		but_OpenFile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				FileManager e = new FileManager("Z:\\Java\\College\\Robo-Reader\\src\\Example1.txt");
-				FileManager e1 = new FileManager("Z:\\Java\\College\\Robo-Reader\\src\\punctuation.txt");
-				e.connectToFile();
-				e1.connectToFile();
-				fileRead = e.readFile();
-				punctMarks = e1.readFile();
-				e.closeReadFile();
-				e1.closeReadFile();
-				System.out.println("File has been opened successfully");
+				j = new FileChooser();
+				
+				try {
+					fileRead = j.ChooseFile(2);
+				} catch (FileNotFoundException e) {
+					e.printStackTrace();
+				}
 			}
 		});
 		
 		but_FindLang.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				//System.out.print(fileRead);
 				FindLan l = new FindLan(fileRead);
 				String lang = l.cLang();
 				text_lang.setText(lang);				
@@ -381,6 +440,18 @@ public class Project_Gui extends JFrame {
 		//Creating menu option item Open File
 		JMenuItem item_Openfile = new JMenuItem("Open File");
 		option_File.add(item_Openfile);
+		item_Openfile.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent ev){
+				j = new FileChooser();
+				
+				try {
+					fileRead = j.ChooseFile(2);
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
 		
 		JMenuItem item_Reset = new JMenuItem("Reset");
 		option_File.add(item_Reset);

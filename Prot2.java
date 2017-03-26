@@ -57,7 +57,7 @@ public class Prot2 {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 607, 327);
+		frame.setBounds(100, 100, 648, 434);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JPanel panel_1 = new JPanel();
@@ -79,19 +79,19 @@ public class Prot2 {
 			gl_panel_1.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_1.createSequentialGroup()
 					.addGap(5)
-					.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
+					.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING, false)
 						.addGroup(gl_panel_1.createSequentialGroup()
 							.addGap(10)
-							.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 241, Short.MAX_VALUE))
+							.addComponent(scrollPane, 0, 0, Short.MAX_VALUE))
 						.addGroup(gl_panel_1.createSequentialGroup()
 							.addComponent(lblLanguages, GroupLayout.PREFERRED_SIZE, 85, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(textField, GroupLayout.PREFERRED_SIZE, 162, GroupLayout.PREFERRED_SIZE)))
 					.addContainerGap())
 				.addGroup(gl_panel_1.createSequentialGroup()
-					.addGap(76)
-					.addComponent(lblTopWords, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-					.addGap(105))
+					.addGap(78)
+					.addComponent(lblTopWords, GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)
+					.addGap(103))
 		);
 		gl_panel_1.setVerticalGroup(
 			gl_panel_1.createParallelGroup(Alignment.LEADING)
@@ -100,11 +100,11 @@ public class Prot2 {
 					.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblLanguages, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 						.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(26)
-					.addComponent(lblTopWords, GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE)
-					.addGap(29))
+					.addGap(21)
+					.addComponent(lblTopWords, GroupLayout.DEFAULT_SIZE, 17, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 137, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap())
 		);
 		
 		table = new JTable();
@@ -127,9 +127,6 @@ public class Prot2 {
 		));
 		scrollPane.setViewportView(table);
 		panel_1.setLayout(gl_panel_1);
-		
-		JPanel panel_2 = new JPanel();
-		frame.getContentPane().add(panel_2, BorderLayout.SOUTH);
 		
 		
 		JPanel panel = new JPanel();
@@ -212,6 +209,39 @@ public class Prot2 {
 		
 		JTextArea textArea = new JTextArea();
 		scrollPane_1.setViewportView(textArea);
+		
+		JPanel panel_2 = new JPanel();
+		frame.getContentPane().add(panel_2, BorderLayout.SOUTH);
+		GridBagLayout gbl_panel_2 = new GridBagLayout();
+		gbl_panel_2.columnWidths = new int[]{225, 46, 89, 0, 0};
+		gbl_panel_2.rowHeights = new int[]{0, 0, 0, 0, 23, 0};
+		gbl_panel_2.columnWeights = new double[]{1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel_2.rowWeights = new double[]{1.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		panel_2.setLayout(gbl_panel_2);
+		
+		JScrollPane scrollPane_2 = new JScrollPane();
+		GridBagConstraints gbc_scrollPane_2 = new GridBagConstraints();
+		gbc_scrollPane_2.insets = new Insets(5, 10, 5, 10);
+		gbc_scrollPane_2.fill = GridBagConstraints.BOTH;
+		gbc_scrollPane_2.gridx = 0;
+		gbc_scrollPane_2.gridy = 0;
+		gbc_scrollPane_2.gridwidth = 3;
+		gbc_scrollPane_2.gridheight = 4;
+		gbc_scrollPane_2.ipady = 80;
+		panel_2.add(scrollPane_2, gbc_scrollPane_2);
+		
+		JTextArea textArea_1 = new JTextArea();
+		scrollPane_2.setViewportView(textArea_1);
+		
+		JButton btnNewButton_8 = new JButton("Display Full Text");
+		GridBagConstraints gbc_btnNewButton_8 = new GridBagConstraints();
+		gbc_btnNewButton_8.insets = new Insets(0, 0, 5, 5);
+		gbc_btnNewButton_8.gridx = 0;
+		gbc_btnNewButton_8.gridy = 4;
+		gbc_btnNewButton_8.gridwidth = 3;
+		gbc_btnNewButton_8.ipadx = 200;
+		panel_2.add(btnNewButton_8, gbc_btnNewButton_8);
+	
 		
 
 	}
