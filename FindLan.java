@@ -23,9 +23,9 @@ public class FindLan
 	FindLan(ArrayList<String> words)
 	{
 		this.words = words;
-		e2 = new FileManager("Z:\\Java\\College\\Robo-Reader\\src\\english.txt");
-		e3 = new FileManager("Z:\\Java\\College\\Robo-Reader\\src\\spanish.txt");
-		e4 = new FileManager("Z:\\Java\\College\\Robo-Reader\\src\\french.txt");
+		e2 = new FileManager(System.getProperty("user.dir") + "\\src\\english.txt");
+		e3 = new FileManager(System.getProperty("user.dir") + "\\src\\spanish.txt");
+		e4 = new FileManager(System.getProperty("user.dir") + "\\src\\french.txt");
 	}
 	
 	//This will verify for stop words in the file

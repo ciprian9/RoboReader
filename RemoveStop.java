@@ -9,7 +9,7 @@ public class RemoveStop
 	//Constructor gets the stop words file ready
 	public RemoveStop()
 	{
-		e2 = new FileManager("Z:\\Java\\College\\Robo-Reader\\src\\stopwords.txt");
+		e2 = new FileManager(System.getProperty("user.dir") + "\\src\\stopwords.txt");
 
 	}
 	
