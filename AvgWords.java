@@ -9,16 +9,16 @@
  *  
  ************************************************************************************/
 
-
+//Imports
 import java.util.HashMap;
 import java.util.ArrayList;
 
 public class AvgWords 
 {
 	//attributes
-	private ArrayList<String> words;
-	private ArrayList<String> obj;
-	private RemoveStop wordstop;
+	private ArrayList<String> words; //contains all the words with no modifications
+	private ArrayList<String> no_Copies; //will record all the words without isolated punctuation or copies
+	private RemoveStop wordstop; //Object to call Remove stop words
 	
 	/*
 	 * The constructor receives the array with the words and creates an
@@ -28,91 +28,87 @@ public class AvgWords
 	public AvgWords(ArrayList<String> words)
 	{
 		this.words = words;
-		this.obj = new ArrayList<String>();
+		this.no_Copies = new ArrayList<String>();
 		this.wordstop= new RemoveStop();
 	}
 	
 	/*
 	 * HashMaps are used and returned in here to create a dictionary that will hold
-	 *Key/value pairs of the words. These will then be used to create the list
-	 *Some of the code was inspired from ideas on stackoverflow as i needed to learn
-	 *how to use hashmaps
+	 *Key/value pairs of the words. These will then be used to create the list of mostly used words
 	 */
 	public HashMap<String, Integer> dictCreate()
 	{
-		//creating new hashmap dictionary
-		HashMap<String, Integer> map = new HashMap<String, Integer>();
-		HashMap<String, Integer> map1 = new HashMap<String, Integer>();
+		//creating new HashMap dictionary
+		HashMap<String, Integer> allWords = new HashMap<String, Integer>();
+		HashMap<String, Integer> noStopWords = new HashMap<String, Integer>();
 		
 		//Loop around all the words in the file
         for (int i = 0; i < words.size(); i++)
         {
             //If the key is present then increase the value by one
-            if(map.containsKey(words.get(i)))
+            if(allWords.containsKey(words.get(i)))
             {
-                map.put(words.get(i), map.get(words.get(i)) + 1);
+                allWords.put(words.get(i), allWords.get(words.get(i)) + 1);
             }
-            //else add the key and set value to one also add the key to the array list obj
+            //else add the key and set value to one also add the key to the array list no_Copies
             else
             {
-                map.put(words.get(i),1);
-                obj.add(words.get(i));
+                allWords.put(words.get(i),1);
+                no_Copies.add(words.get(i));
             }
         }
         
         //Calling the removeStop class to remove stop words
-        map1 = wordstop.removeStop(map);
+        noStopWords = wordstop.removeStop(allWords);
         
-       //Return the hashmap
-       return map1;
+       //Return the HashMap
+       return noStopWords;
 	}
 	
 	
 	
 	/*
-	 * This method will sort the words by how many times they were used and create an 
-	 * arrayList that will be used for displaying
+	 * This method will sort the words in decreasing oder and
+	 * create an arrayList top_10Words that will hold the ordered strings
 	 * */
 	public ArrayList<String> topWords()
 	{
 		
-		//Initialize the hashmap in this method
-		HashMap<String, Integer> map = dictCreate();
+		//Initialize the HashMap in this method
+		HashMap<String, Integer> noStopWords = dictCreate();
 		
-		//This array will hold the words in decreasing order based on dict keys
-		ArrayList<String> high = new ArrayList<String>();
+		//This ArrayList will hold the words in decreasing order based on noStopWords keys
+		ArrayList<String> top_10Words = new ArrayList<String>();
 		
-		//these two variables will allow the dictionary to be modified
-		//so that the elements of the array can be arranged
-		String key ="";
-		int value = 0;
+		String key =""; //String to hold the key of the noStopWords
+		int value = 0; //int to hold the value associated with the key
 		
 		/*The following nested loop is used to pick the highest value for each
 		 * element in the dictionary
 		 */
-		for(int j = 0; j<obj.size(); j++)
+		for(int j = 0; j<no_Copies.size(); j++) //compare each item of no_Copies with every other element using sequential search
 		{
-			for (int i=0; i<obj.size(); i++)
+			for (int i=0; i<no_Copies.size(); i++)
 			{
-				//the highest value is selected and the key is held
-				if(value < map.get(obj.get(i)))
+				//the highest value is selected and the key and value are saved
+				if(value < noStopWords.get(no_Copies.get(i)))
 				{
-					key = obj.get(i);
-					value = map.get(obj.get(i));
+					key = no_Copies.get(i);
+					value = noStopWords.get(no_Copies.get(i));
 				}
 			}
 			
-			high.add(key + " : " + value + " repeats"); // Add the values to the array
-			/*
-			 * The value is subtracted from the dictionary
-			 * this way the highest repeated element will not be the only one populating
-			 * the array
-			 */
-			value = 0; // reseting the value
-			map.put(key, value); 		
+			//adding the key and value to the ArrayList for storing
+			top_10Words.add(key + " : " + value + " repeats");
+			
+			//The value of the highest key is reseted
+			value = 0; 
+			//then added to the HashMap
+			noStopWords.put(key, value); 		
 		}
 		
-		return high;
+		//The ArrayList is then returned
+		return top_10Words;
 	}
 }
 

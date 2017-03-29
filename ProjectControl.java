@@ -22,7 +22,9 @@ public class ProjectControl
 			{
 				try 
 				{
+					//create a Project_Gui object
 					Project_Gui window = new Project_Gui();
+					//set the frame visible
 					window.mainWindow.setVisible(true);
 				} catch (Exception e) 
 				{

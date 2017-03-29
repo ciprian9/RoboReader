@@ -1,21 +1,21 @@
 /**************************************************************************************************************************************
  * 
  * This is a class that finds the language
- * @author Ciprian Anton
+ * Author: Ciprian Anton
  * 2017
  *
  *
  **************************************************************************************************************************************/
 import java.util.ArrayList;
-// Making class
+
 public class FindLan
 {
 	// Attributes
-	private ArrayList<String> words;
-	private ArrayList<String> english;
-	private ArrayList<String> spanish;
-	private ArrayList<String> french;
-	private FileManager e2;
+	private ArrayList<String> words; //list of all words
+	private ArrayList<String> english; //list of English stop words
+	private ArrayList<String> spanish; //list of Spanish stop words
+	private ArrayList<String> french; //list of French stop words
+	private FileManager e2;  //e1, e2 and e3 are all file manager objects used to access the three stop words files
 	private FileManager e3;
 	private FileManager e4;
 
@@ -23,6 +23,7 @@ public class FindLan
 	FindLan(ArrayList<String> words)
 	{
 		this.words = words;
+		//Initialize all the file manager objects
 		e2 = new FileManager(System.getProperty("user.dir") + "\\src\\english.txt");
 		e3 = new FileManager(System.getProperty("user.dir") + "\\src\\spanish.txt");
 		e4 = new FileManager(System.getProperty("user.dir") + "\\src\\french.txt");
@@ -31,19 +32,23 @@ public class FindLan
 	//This will verify for stop words in the file
 	public int[] findLan()
 	{                                                
-		// Creating connection to the file and reading all the stop words
-		
+		// Creating connection to the files
     	e2.connectToFile();
     	e3.connectToFile();
     	e4.connectToFile();
+    	
+    	//int Array for the counters used for checking the stop words
     	int[] counters = new int[3];
+    	
     	//counters to decide which language is it most likely
     	int count = 0, count2 = 0, count3 = 0;
     	
+    	//read all the files
     	english = e2.readFile();
     	spanish = e3.readFile();
     	french = e4.readFile();
     	
+    	//close all the connections
     	e2.closeReadFile();
     	e3.closeReadFile();
     	e4.closeReadFile();
@@ -91,28 +96,25 @@ public class FindLan
 	//verify which language does the file hold
 	public String cLang()
 	{
+		//get the counters from findLan
 		int[] counters = findLan();
-		String lang = "";
+
 		
 		//determining if it is English
-		if(counters[0] > counters[1] && counters[0] > counters[2]){
-			lang="English";
-			//System.out.println(lang);
-		}
+		if(counters[0] > counters[1] && counters[0] > counters[2])
+			return "English";
+
 				
 		//Spanish
-		if(counters[1] > counters[0] && counters[1] > counters[2]){
-			lang="Spanish";
-			//System.out.println(lang);
-		}
-		//or French
-		if(counters[2] > counters[0] && counters[2] > counters[1]){
-			lang="French";
-		}
-		
-		return lang;
-		
-		
+		else if(counters[1] > counters[0] && counters[1] > counters[2])
+			return "Spanish";
+
+		//or French (Since we don't check for extra languages and some languages do overlap when it comes to words
+		//the default will be French in this case)
+		else
+			return "French";
+
+	
 	}
 }
 

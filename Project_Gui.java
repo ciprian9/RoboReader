@@ -1,3 +1,12 @@
+/**************************************************************************************************************************************
+ * 
+ * This class will be used to create and display the whole gui, it also takes care of all action detection
+ * Author: Ciprian Anton
+ * 2017
+ *
+ *
+ **************************************************************************************************************************************/
+
 //All the imports for all the components needed
 import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
@@ -8,6 +17,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.awt.event.ActionEvent;
+
 import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JToolBar;
@@ -49,6 +59,8 @@ public class Project_Gui extends JFrame {
 	private FileManager e1; //FileManager to deal with automated files such as punctuation or log
 	private Registration r; //Registration object used to access the registration methods
 	private JButton but_OpenFile; //Open File Button to access the FileChooser
+	private JPanel center; //center panel where everything is placed
+	JMenuItem item_Reset;
 	String code;
 	
 	//Constructor
@@ -57,7 +69,7 @@ public class Project_Gui extends JFrame {
 		RegistrationCheck(); //Calling Registration Method
 		if(reg)
 			code = "1111-1111-1111";
-		initialize(); //Calling the initialisation fo the GUI method
+		initialize(); //Calling the initialization fo the GUI method
 		
 	}
 	
@@ -113,8 +125,8 @@ public class Project_Gui extends JFrame {
 				
 				gl_west.setHorizontalGroup( //Group will use horizontal alignment
 						
-						//From here on I am adding the different elements to the group : Some of the code have been taken from StockOverflow such as .addGroup(gl_west.createParallelGroup(Alignment.LEADING)
-					gl_west.createParallelGroup(Alignment.LEADING) //Creating parallel grouping and placing the components to the end (Leading)
+		
+					gl_west.createParallelGroup(Alignment.LEADING) //Creating parallel grouping and placing the components to the origin (Leading)
 						.addGroup(gl_west.createSequentialGroup() //Adding the group sequentially
 							.addGap(5) //Add a 5 pixel gap
 							.addGroup(gl_west.createParallelGroup(Alignment.LEADING) //Add the following component also leading Parallel to the previous one
@@ -280,6 +292,7 @@ public class Project_Gui extends JFrame {
 				JTextArea fullText_Area = new JTextArea(); //Text area where the data will be displayed 
 				fullText_Pane.setViewportView(fullText_Area); //setting the view
 				fullText_Area.setEditable(false); //disable editing
+				fullText_Area.setLineWrap(true);
 				
 				JButton but_FullText = new JButton("Display Full Text"); //Button that will print the contents of the file
 				but_FullText.setEnabled(reg);
@@ -294,7 +307,7 @@ public class Project_Gui extends JFrame {
 				but_FullText.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {	
 						if(isFileOpen){
-							e1 = new FileManager(j.path + "\\" + j.name); // Opening the fileManager to get the data line by line
+							e1 = new FileManager(j.getPath() + "\\" + j.getName()); // Opening the fileManager to get the data line by line
 							e1.connectToFile(); //Connecting to File
 							fullText = e1.readLines(); //Reading all the lines
 							e1.closeReadFile(); //closing the file
@@ -374,12 +387,16 @@ public class Project_Gui extends JFrame {
 		
 	
 		but_OpenFile.addActionListener(new ActionListener() { //Action Listener for Open File
+
 			public void actionPerformed(ActionEvent arg0) {
+				if(isFileOpen){
+					item_Reset.doClick();
+				}
 				isFileOpen = true; //set isFileOpen to true
 				j = new FileChooser(); //Create a FileChooser object
 				
 				try {
-					fileRead = j.ChooseFile(2); //Try to access FileChooser
+					fileRead = j.chooseFile(); //Try to access FileChooser
 				} catch (FileNotFoundException e) {
 					e.printStackTrace();
 				}
@@ -488,7 +505,7 @@ public class Project_Gui extends JFrame {
 		
 		
 /*************************************************************************************
- * This is the man menu added directly to the frame
+ * This is the main menu added directly to the frame
  ***************************************************************************************/
 		
 		
@@ -506,7 +523,7 @@ public class Project_Gui extends JFrame {
 		option_File.add(item_Openfile);
 		
 		
-		JMenuItem item_Reset = new JMenuItem("Reset");
+		item_Reset = new JMenuItem("Reset");
 		option_File.add(item_Reset);
 		
 		
@@ -547,13 +564,15 @@ public class Project_Gui extends JFrame {
 		
 		item_Openfile.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent ev){
+				if(isFileOpen){
+					item_Reset.doClick();
+				}
 				isFileOpen = true;
 				j = new FileChooser();
 				
 				try {
-					fileRead = j.ChooseFile(2);
+					fileRead = j.chooseFile();
 				} catch (FileNotFoundException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
@@ -646,6 +665,8 @@ public class Project_Gui extends JFrame {
 					option_Analyse.setEnabled(isReg);
 					option_Filter.setEnabled(isReg);
 					option_Help.setEnabled(isReg);
+					reg_Field.setEnabled(false);
+					reg_Button.setEnabled(false);
 					
 				}
 				reg_Field.setText("");
@@ -659,5 +680,13 @@ public class Project_Gui extends JFrame {
 			}
 		});
 		
+	}
+
+	public JPanel getCenter() {
+		return center;
+	}
+
+	public void setCenter(JPanel center) {
+		this.center = center;
 	}
 }
