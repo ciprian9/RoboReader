@@ -67,8 +67,6 @@ public class Project_Gui extends JFrame {
 	public Project_Gui() {
 		readNecessaryFiles(); //Calling Files method
 		RegistrationCheck(); //Calling Registration Method
-		if(reg)
-			code = "1111-1111-1111";
 		initialize(); //Calling the initialization fo the GUI method
 		
 	}
@@ -83,6 +81,8 @@ public class Project_Gui extends JFrame {
 	public void RegistrationCheck(){
 		r = new Registration(); //Creating the registration object
 		reg = r.checkFile();  //accessing the checkFile method to verify if the product was already registered.
+		if(reg)
+			code = r.pre_set;
 	}
 	
 	//Initialize the contents of the frame.

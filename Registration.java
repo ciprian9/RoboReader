@@ -15,19 +15,19 @@ import java.util.ArrayList;
 public class Registration {
 	
 	private String code; //the code the user enters
-	private String pre_set; //The preset code that the user needs to activate the program
+	String pre_set; //The preset code that the user needs to activate the program
 	private ArrayList<String> log; //The ArrayList containing all the keys present in the log file
 	private int count; // counter to check any key present is right
 	
 	//constructor
 	Registration(String code){
 		this.code = code;  //code user needs to enter
-		pre_set = "1111-1111-1111"; //preset code set in the program
+		pre_set = "0000"; //preset code set in the program
 	}
 	
 	//constructor without user input, for file checking
 	Registration(){ 
-		pre_set = "1111-1111-1111";
+		pre_set = "0000";
 	}
 	
 	//checking if the code entered is right or not
