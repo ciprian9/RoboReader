@@ -15,4 +15,6 @@ product will be automatically activated.
 11. Toolbar options (1.open file, 2.display language, 3.display top 10, 4.Display whole file, 5.activate filter, 6.exit)
 
 
-https://www.youtube.com/watch?v=sB1nHdIw0AA
+The video can be found at https://www.youtube.com/watch?v=sB1nHdIw0AA
+
+Git repository can be found at https://github.com/ciprian9/RoboReader
