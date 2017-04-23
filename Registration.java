@@ -44,7 +44,7 @@ public class Registration {
 	public boolean checkFile(){
 		try{
 			//create file manager object
-			FileManager e = new FileManager(System.getProperty("user.dir") + "\\log.txt");
+			FileManager e = new FileManager("D:\\Programming\\workspace\\Robo2\\src\\log.txt");
 			//connect to the file
 			e.connectToFile();
 			//read the file and save it to the ArrayList log

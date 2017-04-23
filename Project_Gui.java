@@ -670,7 +670,7 @@ public class Project_Gui extends JFrame {
 					
 				}
 				reg_Field.setText("");
-				FileManager e = new FileManager(System.getProperty("user.dir") + "\\log.txt");
+				FileManager e = new FileManager(System.getProperty("user.dir") + "\\src\\log.txt");
 				e.connectToFile();
 				e.getFileWriter();
 				e.writeLineToFile(code);
