@@ -72,7 +72,7 @@ public class Project_Gui extends JFrame {
 	}
 	
 	public void readNecessaryFiles(){
-		e1 = new FileManager(System.getProperty("user.dir") + "\\src\\punctuation.txt"); //Open the punctuation file
+		e1 = new FileManager("D:\\Programming\\workspace\\Robo2\\src\\punctuation.txt"); //Open the punctuation file
 		e1.connectToFile(); //Connection to the file
 		punctMarks = e1.readFile(); //Reading the File and saving it into PunctMarks
 		e1.closeReadFile(); //Closing the File
@@ -357,32 +357,32 @@ public class Project_Gui extends JFrame {
 		but_OpenFile = new JButton("");// Creating the OpenFile Button
 		but_OpenFile.setEnabled(reg); 
 		toolBar.add(but_OpenFile);
-		but_OpenFile.setIcon(new ImageIcon(System.getProperty("user.dir") + "\\src\\Images\\open_file.png")); //Adding an icon to it
+		but_OpenFile.setIcon(new ImageIcon("D:\\Programming\\workspace\\Robo2\\src\\Images\\open_file.png")); //Adding an icon to it
 		
 		
 		JButton but_FindLang = new JButton(""); //Find Language Button
 		but_FindLang.setEnabled(reg);
 		toolBar.add(but_FindLang);
-		but_FindLang.setIcon(new ImageIcon(System.getProperty("user.dir") + "\\src\\Images\\lang.png"));
+		but_FindLang.setIcon(new ImageIcon("D:\\Programming\\workspace\\Robo2\\src\\Images\\lang.png"));
 		
 		but_Top = new JButton(""); //Top 10 Button
 		but_Top.setEnabled(reg);
-		but_Top.setIcon(new ImageIcon(System.getProperty("user.dir") + "\\src\\Images\\icon-top_10s.png"));
+		but_Top.setIcon(new ImageIcon("D:\\Programming\\workspace\\Robo2\\src\\Images\\icon-top_10s.png"));
 		toolBar.add(but_Top);
 		
 		JButton but_Text = new JButton(""); //Dispaly Full Text Button
 		but_Text.setEnabled(reg);
-		but_Text.setIcon(new ImageIcon(System.getProperty("user.dir") + "\\src\\Images\\desktop-512.png"));
+		but_Text.setIcon(new ImageIcon("D:\\Programming\\workspace\\Robo2\\src\\Images\\desktop-512.png"));
 		toolBar.add(but_Text);
 		
 		JButton but_Filter = new JButton(""); //Filter Button
 		but_Filter.setEnabled(reg);
-		but_Filter.setIcon(new ImageIcon(System.getProperty("user.dir") + "\\src\\Images\\filter_list_order_sequence_sor.png"));
+		but_Filter.setIcon(new ImageIcon("D:\\Programming\\workspace\\Robo2\\src\\Images\\filter_list_order_sequence_sor.png"));
 		toolBar.add(but_Filter);
 		
 		JButton but_Exit = new JButton(""); //Exit Button
 		but_Exit.setEnabled(reg);
-		but_Exit.setIcon(new ImageIcon(System.getProperty("user.dir") + "\\src\\Images\\exit1600 (1).png"));
+		but_Exit.setIcon(new ImageIcon("D:\\Programming\\workspace\\Robo2\\src\\Images\\exit1600 (1).png"));
 		toolBar.add(but_Exit);
 		
 	
@@ -670,7 +670,7 @@ public class Project_Gui extends JFrame {
 					
 				}
 				reg_Field.setText("");
-				FileManager e = new FileManager(System.getProperty("user.dir") + "\\log.txt");
+				FileManager e = new FileManager("D:\\Programming\\workspace\\Robo2\\src\\log.txt");
 				e.connectToFile();
 				e.getFileWriter();
 				e.writeLineToFile(code);
