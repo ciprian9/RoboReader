@@ -14,6 +14,7 @@ product will be automatically activated.
 10. The first step is to open a file, if any option is selected without opening a file you will be prompted to open a file if you refuse the produc twill automatically shut down
 11. Toolbar options (1.open file, 2.display language, 3.display top 10, 4.Display whole file, 5.activate filter, 6.exit)
 
+For the Gui I used the eclipse plugin Window Builder to set up the layouts after which I transcripted the GUI into a class, read and understood each of the layouts used and tweaked it for my program. The rest of the code however was written from scratch.
 
 The video can be found at https://www.youtube.com/watch?v=sB1nHdIw0AA
 
